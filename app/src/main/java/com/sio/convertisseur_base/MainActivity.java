@@ -1,6 +1,7 @@
 package com.sio.convertisseur_base;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
 import android.view.View;
@@ -27,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
             RadioButton convertSelected = findViewById(id);
             str = convertSelected.getText().toString();
         }
+        else{
+            str="nothing";
+        }
         return str;
     }
     public String getToConvertSelected(){
@@ -36,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
         if(id != -1){
             RadioButton convertSelected = findViewById(id);
             str = convertSelected.getText().toString();
+        }
+        else{
+            str="nothing";
         }
         return str;
     }
@@ -52,11 +59,40 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 valAconvert = valeur.getText().toString();
                 valAconvert = valAconvert.replace(" ","");
-
-                Comparation comp = new Comparation();
-                result.setText(comp.Comparation(getWhatConvertSelected(), getToConvertSelected(), valAconvert));
+                if(getWhatConvertSelected().equals("Binaire") && TestInput.estBinaire(valAconvert) && !getToConvertSelected().equals("nothing")){
+                    Comparation comp = new Comparation();
+                    int blackColor = ContextCompat.getColor(result.getContext(), R.color.black);
+                    result.setTextColor(blackColor);
+                    result.setText(comp.Comparation(getWhatConvertSelected(), getToConvertSelected(), valAconvert));
+                }
+                else if(getWhatConvertSelected().equals("Octale") && TestInput.estOctale(valAconvert) && !getToConvertSelected().equals("nothing")){
+                    Comparation comp = new Comparation();
+                    int blackColor = ContextCompat.getColor(result.getContext(), R.color.black);
+                    result.setTextColor(blackColor);
+                    result.setText(comp.Comparation(getWhatConvertSelected(), getToConvertSelected(), valAconvert));
+                }
+                else if(getWhatConvertSelected().equals("Decimale") && TestInput.estDecimal(valAconvert) && !getToConvertSelected().equals("nothing")){
+                    Comparation comp = new Comparation();
+                    int blackColor = ContextCompat.getColor(result.getContext(), R.color.black);
+                    result.setTextColor(blackColor);
+                    result.setText(comp.Comparation(getWhatConvertSelected(), getToConvertSelected(), valAconvert));
+                }
+                else if(getWhatConvertSelected().equals("Hexadecimale") && TestInput.estHexadecimal(valAconvert) && !getToConvertSelected().equals("nothing")){
+                    Comparation comp = new Comparation();
+                    int blackColor = ContextCompat.getColor(result.getContext(), R.color.black);
+                    result.setTextColor(blackColor);
+                    result.setText(comp.Comparation(getWhatConvertSelected(), getToConvertSelected(), valAconvert));
+                }
+                else{
+                    int redColor = ContextCompat.getColor(result.getContext(), R.color.red);
+                    result.setTextColor(redColor);
+                    result.setText("Invalid Input");
+                }
 
             }
         });
+
     }
 }
+
+
